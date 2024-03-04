@@ -28,12 +28,13 @@ function App() {
 	const pagination = (arr, currentPage, length) => {
 		return arr.slice((currentPage - 1) * length, currentPage * length);
 	}
-	let maxPage = Math.ceil(data.length / 50)
+	let maxPage = Math.ceil(sortList.length / 50)
 	return (
 		<div className="App">
 			<header className='header'>
 				<div className="container">
 					<Search setSortList={setSortList} setPage={setPage} data={data} />
+					<a className='bio' href="https://my-porfolio-istredo.vercel.app/" target="_blank" rel="noopener noreferrer">Связаться со мной и посмотреть портфолио</a>
 				</div>
 			</header>
 			<section className='main'>
