@@ -2,12 +2,14 @@ import React from 'react'
 import './App.scss'
 
 import Card from './components/Card';
+import Search from './components/Search';
 import { fetchItems, getFiltredId } from './functions/Api'
 
 
 
 function App() {
 	const [data, setData] = React.useState([])
+	const [sortList, setSortList] = React.useState([]);
 	const [page, setPage] = React.useState(1)
 	const [loading, setLoading] = React.useState(true)
 
@@ -15,8 +17,8 @@ function App() {
 	const products = async () => {
 		const productsList = await fetchItems();
 		setData(getFiltredId(productsList, 'id'))
+		setSortList(getFiltredId(productsList, 'id'))
 		setLoading(false)
-
 	}
 
 	if (loading) {
@@ -31,7 +33,7 @@ function App() {
 		<div className="App">
 			<header className='header'>
 				<div className="container">
-
+					<Search setSortList={setSortList} setPage={setPage} data={data} />
 				</div>
 			</header>
 			<section className='main'>
@@ -44,7 +46,7 @@ function App() {
 					{
 						loading
 							? <div className='loading'>Загрузка товаров...</div>
-							: <div className="cards__container">{pagination(data, page, 50).map((item) => <Card key={item.id} {...item} />)}</div>
+							: <div className="cards__container">{pagination(sortList, page, 50).map((item) => <Card key={item.id} {...item} />)}</div>
 					}
 
 				</div>
