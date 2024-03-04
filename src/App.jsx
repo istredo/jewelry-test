@@ -1,35 +1,51 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react'
+import './App.scss'
+
+import Card from './components/Card';
+import { fetchItems, getFiltredId } from './functions/Api'
+
+
 
 function App() {
-  const [count, setCount] = useState(0)
+	const [data, setData] = React.useState([])
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+	const [loading, setLoading] = React.useState(true)
+
+
+	const products = async () => {
+		const productsList = await fetchItems();
+		setData(getFiltredId(productsList, 'id'))
+		setLoading(false)
+
+	}
+
+	if (loading) {
+		products()
+	}
+
+
+
+	return (
+		<div className="App">
+			<header className='header'>
+				<div className="container">
+
+				</div>
+			</header>
+			<section className='main'>
+				<div className="container">
+
+					{
+						loading
+							? <div className='loading'>Загрузка товаров...</div>
+							: <div className="cards__container">{data.map((item) => <Card key={item.id} {...item} />)}</div>
+					}
+
+				</div>
+			</section >
+		</div >
+	)
 }
 
 export default App
+
