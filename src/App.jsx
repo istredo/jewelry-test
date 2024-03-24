@@ -34,7 +34,7 @@ function App() {
 			<header className='header'>
 				<div className="container">
 					<Search setSortList={setSortList} setPage={setPage} data={data} />
-					<a className='bio' href="https:/istredo.fun" target="_blank" rel="noopener noreferrer">Связаться со мной и посмотреть портфолио</a>
+					<a className='bio' href="https://istredo.fun/" target="_blank" rel="noopener noreferrer">Связаться со мной и посмотреть портфолио</a>
 				</div>
 			</header>
 			<section className='main'>
